@@ -30,39 +30,40 @@ utensilsDropdownVisiblePart?.addEventListener("click", () => {
   utensilsDropdown?.classList.toggle("open");
 });
 
-/**
- * Met à jour l'affichage d'une liste en fonction de la saisie dans un champ de recherche.
- * @param {HTMLInputElement} dropdownInput - L'élément input de la liste déroulante.
- * @param {string} listContainer - Sélecteur CSS du conteneur de la liste à mettre à jour.
- * @returns {void}
- */
-function updateListDisplay(dropdownInput, listContainer) {
-  const inputValue = dropdownInput.value.toLowerCase();
-  const specificListContainer = document.querySelector(listContainer);
+const ingredientsDropdownInput = document.getElementById(
+  "ingredients-dd-input"
+);
+ingredientsDropdownInput.addEventListener("input", () => {
+  const inputValue = ingredientsDropdownInput.value.toLowerCase();
+  const specificListContainer = document.getElementById("ingredients-dd-list");
   const options = specificListContainer.querySelectorAll("p");
   for (const option of options) {
     const optionText = option.textContent.toLowerCase();
     const isMatch = optionText.includes(inputValue);
     option.style.display = isMatch ? "flex" : "none";
   }
-}
+});
 
-const ingredientsDropdownInput = document.querySelector(
-  "#ingredients-dd-input"
-);
-const devicesDropdownInput = document.querySelector("#devices-dd-input");
-const utensilsDropdownInput = document.querySelector("#utensils-dd-input");
+const devicesDropdownInput = document.getElementById("devices-dd-input");
+devicesDropdownInput.addEventListener("input", () => {
+  const inputValue = devicesDropdownInput.value.toLowerCase();
+  const specificListContainer = document.getElementById("devices-dd-list");
+  const options = specificListContainer.querySelectorAll("p");
+  for (const option of options) {
+    const optionText = option.textContent.toLowerCase();
+    const isMatch = optionText.includes(inputValue);
+    option.style.display = isMatch ? "flex" : "none";
+  }
+});
 
-ingredientsDropdownInput?.addEventListener(
-  "input",
-  updateListDisplay(ingredientsDropdownInput, "#ingredients-dd-list")
-);
-
-devicesDropdownInput?.addEventListener(
-  "input",
-  updateListDisplay(devicesDropdownInput, "#devices-dd-list")
-);
-utensilsDropdownInput?.addEventListener(
-  "input",
-  updateListDisplay(utensilsDropdownInput, "#utensils-dd-list")
-);
+const utensilsDropdownInput = document.getElementById("utensils-dd-input");
+utensilsDropdownInput.addEventListener("input", () => {
+  const inputValue = utensilsDropdownInput.value.toLowerCase();
+  const specificListContainer = document.getElementById("utensils-dd-list");
+  const options = specificListContainer.querySelectorAll("p");
+  for (const option of options) {
+    const optionText = option.textContent.toLowerCase();
+    const isMatch = optionText.includes(inputValue);
+    option.style.display = isMatch ? "flex" : "none";
+  }
+});

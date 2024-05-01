@@ -48,7 +48,7 @@ if (selectedContainer.children.length === 0 && results.length === 0) {
   for (const ingredient of allIngredients) {
     const pElement = document.createElement("p");
     pElement.textContent = ingredient.ingredient;
-    pElement.onclick = () => {
+    pElement.onclick = function () {
       selectItem(this);
     };
     ingredientsListContainer.appendChild(pElement);

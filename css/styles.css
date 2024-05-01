@@ -356,9 +356,24 @@ body {
   overflow: visible;
 }
 
+.ingredients-dd-list p:not(.selected)::before,
+.devices-dd-list p:not(.selected)::before,
+.utensils-dd-list p:not(.selected)::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  background: #ffd15b;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+}
+
 .ingredients-dd-list p:not(.selected):hover::before,
 .devices-dd-list p:not(.selected):hover::before,
-.utensils-dd-list p:not(.selected)::before {
+.utensils-dd-list p:not(.selected):hover::before {
   opacity: 1;
 }
 

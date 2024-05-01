@@ -76,6 +76,21 @@ function updateSearchResults(results) {
   }
 }
 
+function findDropdownElementByText(text, containers) {
+  for (const container of containers) {
+    const allDropdownElements = container.querySelectorAll("p");
+
+    for (const element of allDropdownElements) {
+      if (
+        element.textContent.trim().toLowerCase() === text.trim().toLowerCase()
+      ) {
+        return element;
+      }
+    }
+  }
+  return null;
+}
+
 function resetRecipes() {
   fillCards(recipes);
   updateRecipeCount();
@@ -103,24 +118,11 @@ function updateDropdownOptions(dropdownOption, options, property) {
       console.error(`Format d'option non valide : ${option}`);
       return;
     }
-    optionElement.onclick = () => selectItem(this);
+    optionElement.onclick = function () {
+      selectItem(this);
+    };
     dropdown.appendChild(optionElement);
   }
-}
-
-function findDropdownElementByText(text, containers) {
-  for (const container of containers) {
-    const allDropdownElements = container.querySelectorAll("p");
-
-    for (const element of allDropdownElements) {
-      if (
-        element.textContent.trim().toLowerCase() === text.trim().toLowerCase()
-      ) {
-        return element;
-      }
-    }
-  }
-  return null;
 }
 
 searchInput.addEventListener("input", () => {

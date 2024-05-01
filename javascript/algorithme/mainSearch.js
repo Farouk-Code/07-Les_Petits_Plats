@@ -1,4 +1,25 @@
 // @ts-nocheck
+function handleSearch() {
+  const userInput = searchInput.value.toLowerCase();
+  if (userInput.length >= 3) {
+    selectedFilters = [];
+    results = recipes.filter((recipe) => {
+      const titleMatch = recipe.name.toLowerCase().includes(userInput);
+      const ingredientsMatch = recipe.ingredients.some((ingredient) =>
+        ingredient.ingredient.toLowerCase().includes(userInput)
+      );
+      const descriptionMatch = recipe.description
+        .toLowerCase()
+        .includes(userInput);
+      return titleMatch || ingredientsMatch || descriptionMatch;
+    });
+    updateSearchResults(results);
+    fillCards(results);
+  } else {
+    resetRecipes();
+  }
+}
+
 function searchByFilters(selectedFilters) {
   results = recipes.filter((recipe) => {
     return selectedFilters.every((filter) => {
@@ -27,7 +48,38 @@ function searchByFilters(selectedFilters) {
   fillCards(results);
 }
 
-function updateSearchResults(results) {}
+function updateSearchResults(results) {
+  const uniqueIngredients = getUniqueIngredients(results);
+  const uniqueDevices = getUniqueDevices(results);
+  const uniqueUstensils = getUniqueUstensils(results);
+
+  updateDropdownOptions("ingredients", allIngredients, "ingredient");
+  updateDropdownOptions("devices", allDevices, "appliance");
+  updateDropdownOptions("utensils", allUstensils, "ustensil");
+
+  const containers = [
+    ingredientsListContainer,
+    devicesListContainer,
+    ustensilsListContainer,
+  ];
+
+  for (const filter of selectedFilters) {
+    const isInIngredients = uniqueIngredients.includes(filter);
+    const isInDevice = uniqueDevices.includes(filter);
+    const isInUstensils = uniqueUstensils.includes(filter);
+    if (isInIngredients || isInDevice || isInUstensils) {
+      const dropdownElement = findDropdownElementByText(filter, containers);
+      if (dropdownElement) {
+        updateSelectedItemLayout(dropdownElement);
+      }
+    }
+  }
+}
+
+function resetRecipes() {
+  fillCards(recipes);
+  updateRecipeCount();
+}
 
 function updateDropdownOptions(dropdownOption, options, property) {
   const dropdownId = `${dropdownOption}-dd-list`;
@@ -70,3 +122,7 @@ function findDropdownElementByText(text, containers) {
   }
   return null;
 }
+
+searchInput.addEventListener("input", () => {
+  handleSearch();
+});

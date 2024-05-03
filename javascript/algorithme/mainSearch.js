@@ -8,7 +8,10 @@ function handleSearch() {
   const userInput = searchInput.value.toLowerCase();
   if (userInput.length >= 3) {
     selectedFilters = [];
-    results = recipes.filter((recipe) => {
+    results = [];
+
+    for (let i = 0; i < recipes.length; i++) {
+      const recipe = recipes[i];
       const titleMatch = recipe.name.toLowerCase().includes(userInput);
       const ingredientsMatch = recipe.ingredients.some((ingredient) =>
         ingredient.ingredient.toLowerCase().includes(userInput)
@@ -16,47 +19,46 @@ function handleSearch() {
       const descriptionMatch = recipe.description
         .toLowerCase()
         .includes(userInput);
-      return titleMatch || ingredientsMatch || descriptionMatch;
-    });
+
+      if (titleMatch || ingredientsMatch || descriptionMatch) {
+        results.push(recipe);
+      }
+    }
+
     updateSearchResults(results);
-    fillCards(results);
+    populateCards(results);
   } else {
     resetRecipes();
   }
 }
 
-/**
- * Recherche des recettes en fonction des filtres sélectionnés.
- * Utilisation de la méthode filter()
- * @param {Array<string>} selectedFilters - Les filtres sélectionnés par l'utilisateur.
- * @returns {void}
- */
 function searchByFilters(selectedFilters) {
-  results = recipes.filter((recipe) => {
-    return selectedFilters.every((filter) => {
+  let results = [];
+  for (const recipe of recipes) {
+    let filterMatch = true;
+    for (const filter of selectedFilters) {
       if (
-        recipe.ingredients.some((ingredient) =>
-          ingredient.ingredient.toLowerCase().includes(filter.toLowerCase())
+        !(
+          recipe.ingredients.some((ingredient) =>
+            ingredient.ingredient.toLowerCase().includes(filter.toLowerCase())
+          ) ||
+          recipe.appliance.toLowerCase().includes(filter.toLowerCase()) ||
+          recipe.ustensils.some((ustensil) =>
+            ustensil.toLowerCase().includes(filter.toLowerCase())
+          )
         )
       ) {
-        return true;
-      } else if (
-        recipe.appliance.toLowerCase().includes(filter.toLowerCase())
-      ) {
-        return true;
-      } else if (
-        recipe.ustensils.some((ustensil) =>
-          ustensil.toLowerCase().includes(filter.toLowerCase())
-        )
-      ) {
-        return true;
-      } else {
-        return false;
+        filterMatch = false;
+        break;
       }
-    });
-  });
+    }
+
+    if (filterMatch) {
+      results.push(recipe);
+    }
+  }
   updateSearchResults(results);
-  fillCards(results);
+  populateCards(results);
 }
 
 /**

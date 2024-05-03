@@ -25,7 +25,7 @@ function handleSearch() {
     }
 
     updateSearchResults(results);
-    populateCards(results);
+    fillCards(results);
   } else {
     resetRecipes();
   }
@@ -63,7 +63,7 @@ function searchByFilters(selectedFilters) {
     }
   }
   updateSearchResults(results);
-  populateCards(results);
+  fillCards(results);
 }
 
 /**

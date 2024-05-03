@@ -1,4 +1,9 @@
 // @ts-nocheck
+/**
+ * Sélectionne un élément dans les filtres et met à jour les résultats de la recherche.
+ * @param {HTMLElement} selectedElement - L'élément sélectionné dans les filtres.
+ * @returns {void}
+ */
 function selectItem(selectedElement) {
   const filterValue = selectedElement.textContent.toLowerCase();
   if (!selectedFilters.some((filter) => filter.toLowerCase() === filterValue)) {
@@ -16,6 +21,11 @@ function selectItem(selectedElement) {
   }
 }
 
+/**
+ * Met à jour la mise en page d'un élément sélectionné dans les filtres.
+ * @param {HTMLElement} selectedElement - L'élément sélectionné dans les filtres.
+ * @returns {void}
+ */
 function updateSelectedItemLayout(selectedElement) {
   const filterValue = selectedElement.textContent.trim().toLowerCase();
   const svgDropdown = selectedElement.querySelector("svg");
@@ -46,6 +56,9 @@ function updateSelectedItemLayout(selectedElement) {
     createCloneSvg();
   }
 
+  /**
+   * Crée un élément SVG à l'intérieur de l'élément sélectionné.
+   */
   function createDropdownSvg() {
     var svgElement = document.createElementNS(
       "http://www.w3.org/2000/svg",
@@ -110,6 +123,12 @@ function updateSelectedItemLayout(selectedElement) {
   }
 }
 
+/**
+ * Supprime un élément sélectionné des filtres et met à jour l'état de la page si nécessaire.
+ * @param {HTMLElement} selectedElement - L'élément sélectionné à supprimer des filtres.
+ * @param {HTMLElement} selectedItemClone - Le clone de l'élément sélectionné à supprimer.
+ * @returns {void}
+ */
 function removeSelectedItem(selectedElement, selectedItemClone) {
   const filterValue = selectedElement.textContent.trim().toLowerCase();
   const index = selectedFilters.indexOf(filterValue);
@@ -130,6 +149,11 @@ function removeSelectedItem(selectedElement, selectedItemClone) {
   }
 }
 
+/**
+ * Réinitialise l'état de la page en mettant à jour les options des menus déroulants
+ * et en affichant toutes les recettes.
+ * @returns {void}
+ */
 function resetPageState() {
   updateDropdownOptions("ingredients", allIngredients, "ingredient");
   updateDropdownOptions("devices", allDevices, "appliance");
@@ -138,6 +162,11 @@ function resetPageState() {
   updateRecipeCount();
 }
 
+/**
+ * Met à jour la présentation visuelle des éléments sélectionnés dans les filtres
+ * en supprimant ceux qui ne sont plus sélectionnés.
+ * @returns {void}
+ */
 function updateSelectedVisuals() {
   const containers = [
     ingredientsListContainer,

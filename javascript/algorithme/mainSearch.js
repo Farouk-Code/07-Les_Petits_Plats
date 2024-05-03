@@ -1,4 +1,9 @@
 // @ts-nocheck
+/**
+ * Gère la recherche de recettes en fonction de l'entrée de l'utilisateur.
+ * Utilisation de la méthode filter()
+ * @returns {void}
+ */
 function handleSearch() {
   const userInput = searchInput.value.toLowerCase();
   if (userInput.length >= 3) {
@@ -20,6 +25,12 @@ function handleSearch() {
   }
 }
 
+/**
+ * Recherche des recettes en fonction des filtres sélectionnés.
+ * Utilisation de la méthode filter()
+ * @param {Array<string>} selectedFilters - Les filtres sélectionnés par l'utilisateur.
+ * @returns {void}
+ */
 function searchByFilters(selectedFilters) {
   results = recipes.filter((recipe) => {
     return selectedFilters.every((filter) => {
@@ -48,6 +59,11 @@ function searchByFilters(selectedFilters) {
   fillCards(results);
 }
 
+/**
+ * Met à jour les résultats de la recherche en fonction des recettes filtrées.
+ * @param {Array<Object>} results - Les résultats de la recherche de recettes.
+ * @returns {void}
+ */
 function updateSearchResults(results) {
   const uniqueIngredients = getUniqueIngredients(results);
   const uniqueDevices = getUniqueDevices(results);
@@ -76,6 +92,12 @@ function updateSearchResults(results) {
   }
 }
 
+/**
+ * Recherche un élément de menu déroulant par son texte dans une liste de conteneurs.
+ * @param {string} text - Le texte à rechercher dans les éléments de menu déroulant.
+ * @param {Array<HTMLElement>} containers - Les conteneurs HTML dans lesquels effectuer la recherche.
+ * @returns {HTMLElement|null} L'élément de menu déroulant trouvé ou null s'il n'est pas trouvé.
+ */
 function findDropdownElementByText(text, containers) {
   for (const container of containers) {
     const allDropdownElements = container.querySelectorAll("p");
@@ -91,11 +113,22 @@ function findDropdownElementByText(text, containers) {
   return null;
 }
 
+/**
+ * Réinitialise l'affichage des recettes pour afficher toutes les recettes disponibles.
+ * @returns {void}
+ */
 function resetRecipes() {
   fillCards(recipes);
   updateRecipeCount();
 }
 
+/**
+ * Met à jour les options d'un menu déroulant avec les options fournies.
+ * @param {string} dropdownOption - L'identifiant de l'élément du menu déroulant à mettre à jour.
+ * @param {Array<string|Object>} options - Les options à afficher dans le menu déroulant.
+ * @param {string} property - La propriété des objets à utiliser comme texte d'option.
+ * @returns {void}
+ */
 function updateDropdownOptions(dropdownOption, options, property) {
   const dropdownId = `${dropdownOption}-dd-list`;
   const dropdown = document.getElementById(dropdownId);

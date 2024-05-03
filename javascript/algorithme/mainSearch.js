@@ -1,7 +1,6 @@
 // @ts-nocheck
 /**
- * Gère la recherche de recettes en fonction de l'entrée de l'utilisateur.
- * Utilisation de la méthode filter()
+ * Gère la recherche en fonction de la saisie utilisateur dans la barre de recherche.
  * @returns {void}
  */
 function handleSearch() {
@@ -32,6 +31,12 @@ function handleSearch() {
   }
 }
 
+/**
+ * Effectue une recherche en fonction des filtres sélectionnés et met à jour les résultats
+ * de la recherche ainsi que les cartes affichées.
+ * @param {Array<string>} selectedFilters - Les filtres sélectionnés pour la recherche.
+ * @returns {void}
+ */
 function searchByFilters(selectedFilters) {
   let results = [];
   for (const recipe of recipes) {

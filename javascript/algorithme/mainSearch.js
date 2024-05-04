@@ -1,16 +1,14 @@
 // @ts-nocheck
 /**
- * Gère la recherche en fonction de la saisie utilisateur dans la barre de recherche.
+ * Gère la recherche de recettes en fonction de l'entrée de l'utilisateur.
+ * Utilisation de la méthode filter()
  * @returns {void}
  */
 function handleSearch() {
   const userInput = searchInput.value.toLowerCase();
   if (userInput.length >= 3) {
     selectedFilters = [];
-    results = [];
-
-    for (let i = 0; i < recipes.length; i++) {
-      const recipe = recipes[i];
+    results = recipes.filter((recipe) => {
       const titleMatch = recipe.name.toLowerCase().includes(userInput);
       const ingredientsMatch = recipe.ingredients.some((ingredient) =>
         ingredient.ingredient.toLowerCase().includes(userInput)
@@ -18,12 +16,8 @@ function handleSearch() {
       const descriptionMatch = recipe.description
         .toLowerCase()
         .includes(userInput);
-
-      if (titleMatch || ingredientsMatch || descriptionMatch) {
-        results.push(recipe);
-      }
-    }
-
+      return titleMatch || ingredientsMatch || descriptionMatch;
+    });
     updateSearchResults(results);
     fillCards(results);
   } else {

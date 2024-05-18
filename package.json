@@ -3,5 +3,9 @@
     "@eslint/js": "^9.3.0",
     "eslint": "^9.3.0",
     "globals": "^15.2.0"
+  },
+  "scripts": {
+    "dev": "http-server",
+    "lint": "eslint ./javascript/*/*.js"
   }
 }

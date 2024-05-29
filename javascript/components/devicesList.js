@@ -13,7 +13,8 @@ const allDevices = recipes.reduce((devices, recipe) => {
 
 /**
  * Extrait une liste des appareils uniques à partir des résultats de recettes.
- * @param {Array} results - Tableau d'objets représentant les recettes. Chaque objet doit avoir une propriété `appliance` qui est une chaîne de caractères.
+ * @param {Array} results - Tableau d'objets représentant les recettes.
+ * Chaque objet doit avoir une propriété `appliance` qui est une chaîne de caractères.
  * @returns {Array<string>} - Tableau des noms d'appareils uniques en minuscules.
  */
 function getUniqueDevices(results) {

@@ -15,9 +15,10 @@ const allUstensils = recipes.reduce((ustensils, recipe) => {
 }, []);
 
 /**
- * Récupère tous les ustensiles uniques à partir d'une liste de recettes.
- * @param {Array<Object>} results - La liste des recettes.
- * @returns {Array<string>} Un tableau contenant tous les ustensiles uniques en minuscules.
+ * Extrait une liste des ustensiles uniques à partir des résultats de recettes.
+ * @param {Array} results - Tableau d'objets représentant les recettes.
+ * Chaque objet doit avoir une propriété `ustensils` qui est un tableau de chaînes de caractères.
+ * @returns {Array<string>} - Tableau des noms d'ustensiles uniques en minuscules.
  */
 function getUniqueUstensils(results) {
   const uniqueUstensils = results.reduce((ustensils, recipe) => {

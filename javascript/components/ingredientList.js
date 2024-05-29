@@ -19,9 +19,11 @@ const allIngredients = recipes.reduce((ingredients, recipe) => {
 }, []);
 
 /**
- * Récupère tous les ingrédients uniques à partir d'une liste de recettes.
- * @param {Array<Object>} results - La liste des recettes.
- * @returns {Array<string>} Un tableau contenant tous les ingrédients uniques.
+ * Extrait une liste des ingrédients uniques à partir des résultats de recettes.
+ * @param {Array} results - Tableau d'objets représentant les recettes.
+ * Chaque objet doit avoir une propriété `ingredients` qui est un tableau d'objets,
+ * chacun contenant une propriété `ingredient` de type chaîne de caractères.
+ * @returns {Array<string>} - Tableau des noms d'ingrédients uniques en minuscules.
  */
 function getUniqueIngredients(results) {
   const uniqueIngredients = results.reduce((ingredients, recipe) => {
